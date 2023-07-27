@@ -6,10 +6,9 @@ import java.sql.SQLException;
 
 public class Util {
     // реализуйте настройку соеденения с БД
-    private static final String HOST = "jdbc:mysql://localhost:3306/mydbtest";
-    private static final String USERNAME = "root";
-    private static final String PASSWORD = "ir5SxPrtNQGgy9m1Ta9W";
-
+    private static final String HOST = "jdbc:mysql://localhost:3306/smartex";
+    private static final String USERNAME = "root21";
+    private static final String PASSWORD = "root21";
     private Connection connection;
 
     public Util() {

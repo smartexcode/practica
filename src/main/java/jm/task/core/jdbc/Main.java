@@ -26,7 +26,6 @@ public class Main {
         userService.saveUser("Elon", "Musk", 51);
 
         userService.getAllUsers();
-
         userService.cleanUsersTable();
         userService.dropUsersTable();
     }
