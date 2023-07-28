@@ -24,7 +24,7 @@ public class UserDaoHibernateImpl implements UserDao {
     }
 
     @Override
-    public void saveUser(String name, String lastName, int age) {
+    public void saveUser(String name, String lastName, int age, String birth, String gender, String citizenship) {
 
     }
 

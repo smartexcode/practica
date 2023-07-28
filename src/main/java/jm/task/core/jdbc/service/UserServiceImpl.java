@@ -18,8 +18,10 @@ public class UserServiceImpl implements UserService {
         userDao.dropUsersTable();
     }
 
-    public void saveUser(String name, String lastName, int age) {
-        userDao.saveUser(name, lastName, age);
+    @Override
+    public void saveUser(String name, String lastName,
+                         int age, String birth, String gender, String citizenship) {
+
     }
 
     public void removeUserById(long id) {

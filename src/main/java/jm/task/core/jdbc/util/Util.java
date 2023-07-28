@@ -6,8 +6,8 @@ import java.sql.SQLException;
 
 public class Util {
     // реализуйте настройку соеденения с БД
-    private static final String HOST = "jdbc:mysql://localhost:3306/smartex";
-    private static final String USERNAME = "root21";
+    private static final String HOST = "jdbc:postgresql://localhost:5432/pgtest";
+    private static final String USERNAME = "postgres";
     private static final String PASSWORD = "root21";
     private Connection connection;
 
