@@ -24,7 +24,7 @@ public class Main {
         userService.saveUser("Инсаф", "Кинаев", 23,"10 мая 2000","M","Россия");
         userService.saveUser("Мария", "Картошкина", 23,"9 марта 2000","Ж","Беларусь");
         userService.saveUser("Elon", "Musk", 51," 28 июня 1971","M","Africa");
-        userService.saveUser("Иван", "Иванов", 4," 11 августа 2018","M","Россия");
+        userService.saveUser("Иван", "Иванов", 4,"11 августа 2018","M","Россия");
 
         userService.getAllUsers();
         userService.cleanUsersTable();

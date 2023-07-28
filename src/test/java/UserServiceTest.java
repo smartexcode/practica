@@ -12,7 +12,7 @@ public class UserServiceTest {
     private final String testName = "Иван";
     private final String testLastName = "Иванов";
     private final byte testAge = 4;
-    private final String testBirth = "11 август 2018";
+    private final String testBirth = "11 августа 2018";
     private final String testGender = "M";
     private final String testCitizenship = "Россия";
 
@@ -43,13 +43,12 @@ public class UserServiceTest {
         try {
             userService.dropUsersTable();
             userService.createUsersTable();
-            userService.saveUser(testName, testLastName, testAge,testBirth,testGender,testCitizenship);
+            userService.saveUser(testName, testLastName, testAge, testBirth, testGender, testCitizenship);
 
             User user = userService.getAllUsers().get(0);
 
-            if (!testName.equals(user.getName())
-                    || !testLastName.equals(user.getLastName())
-                    || testAge != user.getAge()
+            if (!testName.equals(user.getName()) || !testLastName.equals(user.getLastName()) || testAge != user.getAge() ||
+            !testBirth.equals(user.getBirth()) || !testGender.equals(user.getGender()) || !testCitizenship.equals(user.getCitizenship())
             ) {
                 Assert.fail("User был некорректно добавлен в базу данных");
             }
