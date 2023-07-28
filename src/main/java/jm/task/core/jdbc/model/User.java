@@ -18,14 +18,29 @@ public class User {
     @Column
     private Byte age;
 
+    // тут добавил + еще поля
+    @Column
+    private String birth;
+
+    @Column
+    private String gender;
+
+    @Column
+    private String citizenship;
+
     public User() {
 
     }
 
-    public User(String name, String lastName, Byte age) {
+    public User(Long id, String name, String lastName, Byte age,
+                String birth, String gender, String citizenship) {
+        this.id = id;
         this.name = name;
         this.lastName = lastName;
         this.age = age;
+        this.birth = birth;
+        this.gender = gender;
+        this.citizenship = citizenship;
     }
 
     public Long getId() {
@@ -60,6 +75,29 @@ public class User {
         this.age = age;
     }
 
+    public String getBirth() {
+        return birth;
+    }
+
+    public void setBirth(String birth) {
+        this.birth = birth;
+    }
+
+    public String getGender() {
+        return gender;
+    }
+    public void setGender(String gender) {
+        this.gender = gender;
+    }
+
+    public String getCitizenship() {
+        return citizenship;
+    }
+
+    public void setCitizenship(String citizenship) {
+        this.citizenship = citizenship;
+    }
+
     @Override
     public String toString() {
         return "User{" +
@@ -67,6 +105,9 @@ public class User {
                 ", name='" + name + '\'' +
                 ", lastName='" + lastName + '\'' +
                 ", age=" + age +
+                ", birth='" + birth + '\'' +
+                ", gender='" + gender + '\'' +
+                ", citizenship='" + citizenship + '\'' +
                 '}';
     }
 }
