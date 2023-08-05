@@ -20,11 +20,10 @@ public class Main {
         // реализуйте алгоритм здесь
         UserService userService = new UserServiceImpl();
         userService.createUsersTable();
-        userService.saveUser("Ербол", "Байжанов", 25,"23 марта 1998","M","Казахстан");
-        userService.saveUser("Инсаф", "Кинаев", 23,"10 мая 2000","M","Россия");
-        userService.saveUser("Мария", "Картошкина", 23,"9 марта 2000","Ж","Беларусь");
-        userService.saveUser("Elon", "Musk", 51," 28 июня 1971","M","Africa");
-        userService.saveUser("Иван", "Иванов", 4,"11 августа 2018","M","Россия");
+        userService.saveUser("Ербол", "Байжанов", 25,"23 марта 1998","м","Казахстан");
+        userService.saveUser("Инсаф", "Кинаев", 23,"10 мая 2000","м","Россия");
+        userService.saveUser("Мария", "Картошкина", 23,"9 марта 2000","ж","Беларусь");
+        userService.saveUser("Elon", "Musk", 51," 28 июня 1971","м","Africa");
 
         userService.getAllUsers();
         userService.cleanUsersTable();

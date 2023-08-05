@@ -13,13 +13,11 @@ import java.util.List;
 public class UserDaoJDBCImpl implements UserDao {
 
     Util util = new Util();
-    public UserDaoJDBCImpl() {
-
-    }
+    public UserDaoJDBCImpl() {}
 
     public void createUsersTable() {
         try (Statement statement = util.getConnection().createStatement()){
-            statement.execute("CREATE TABLE if NOT EXISTS USER(id bigint auto_increment, name VARCHAR(40) NULL, lastName VARCHAR(40) NULL, age int NULL,birth VARCHAR(60) NULL,gender VARCHAR(1) NULL,citizenship VARCHAR(60) , CONSTRAINT table_name_pk PRIMARY KEY (id));");
+            statement.execute("CREATE TABLE if NOT EXISTS USER (id bigint auto_increment, name VARCHAR(40) NULL, lastName VARCHAR(40) NULL, age int NULL,birth VARCHAR(40) NULL,gender VARCHAR(1) NULL,country VARCHAR(40) NULL , CONSTRAINT table_name_pk PRIMARY KEY (id));");
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -33,18 +31,18 @@ public class UserDaoJDBCImpl implements UserDao {
         }
     }
 
-    public void saveUser(String name, String lastName, int age, String birth, String gender, String citizenship) {
-        String request = "INSERT INTO user(name, lastName, age, birth, gender, citizenship) VALUES(?, ?, ?, ?, ?, ?);";
+    public void saveUser(String name, String lastName, int age, String birth, String gender, String country) {
+        String request = "INSERT INTO user(name, lastName, age, birth, gender, country) VALUES (?, ?, ?, ?, ?, ?)";
+
         try (PreparedStatement preparedStatement = util.getConnection().prepareStatement(request)){
             preparedStatement.setString(1, name);
             preparedStatement.setString(2, lastName);
             preparedStatement.setInt(3, age);
             preparedStatement.setString(4, birth);
-            preparedStatement.setString(5, gender);
-            preparedStatement.setString(6, citizenship);
-
+            preparedStatement.setString(5,gender);
+            preparedStatement.setString(6, country);
             preparedStatement.executeUpdate();
-            System.out.printf("User с именем – %s добавлен в базу данных\r\n", name);
+            System.out.printf("User с именем – %s добавлен в базу данных\r\n",name);
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -70,12 +68,10 @@ public class UserDaoJDBCImpl implements UserDao {
                 user.setId(resultSet.getLong("id"));
                 user.setName(resultSet.getString("name"));
                 user.setLastName(resultSet.getString("lastName"));
-                user.setAge(resultSet.getByte("age"));
+                user.setAge(resultSet.getInt("age"));
                 user.setBirth(resultSet.getString("birth"));
                 user.setGender(resultSet.getString("gender"));
-                user.setCitizenship(resultSet.getString("citizenship"));
-
-
+                user.setCountry(resultSet.getString("country"));
                 list.add(user);
             }
         } catch (SQLException e) {

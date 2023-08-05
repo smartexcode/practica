@@ -9,13 +9,12 @@ import java.util.List;
 public class UserServiceTest {
     private final UserService userService = new UserServiceImpl();
 
-    private final String testName = "Иван";
-    private final String testLastName = "Иванов";
-    private final byte testAge = 4;
-    private final String testBirth = "11 августа 2018";
-    private final String testGender = "M";
-    private final String testCitizenship = "Россия";
-
+    private final String testName = "Ivan";
+    private final String testLastName = "Ivanov";
+    private final int testAge = 5;
+    private final String testBirth = "21.02.2017";
+    private final String testGender = "м";
+    private final String testCountry = "Россия";
 
 
     @Test
@@ -43,12 +42,22 @@ public class UserServiceTest {
         try {
             userService.dropUsersTable();
             userService.createUsersTable();
-            userService.saveUser(testName, testLastName, testAge, testBirth, testGender, testCitizenship);
+            userService.saveUser(
+                    testName,
+                    testLastName,
+                    testAge,
+                    testBirth,
+                    testGender,
+                    testCountry);
 
             User user = userService.getAllUsers().get(0);
 
-            if (!testName.equals(user.getName()) || !testLastName.equals(user.getLastName()) || testAge != user.getAge() ||
-            !testBirth.equals(user.getBirth()) || !testGender.equals(user.getGender()) || !testCitizenship.equals(user.getCitizenship())
+            if (!testName.equals(user.getName())
+                    || !testLastName.equals(user.getLastName())
+                    || testAge != user.getAge()
+                    || !testBirth.equals(user.getBirth())
+                    || !testGender.equals(user.getGender())
+                    || !testCountry.equals(user.getCountry())
             ) {
                 Assert.fail("User был некорректно добавлен в базу данных");
             }
@@ -63,7 +72,7 @@ public class UserServiceTest {
         try {
             userService.dropUsersTable();
             userService.createUsersTable();
-            userService.saveUser(testName, testLastName, testAge, testBirth,testGender,testCitizenship);
+            userService.saveUser(testName, testLastName, testAge,testBirth,testGender,testCountry);
             userService.removeUserById(1L);
         } catch (Exception e) {
             Assert.fail("При тестировании удаления пользователя по id произошло исключение\n" + e);
@@ -75,7 +84,7 @@ public class UserServiceTest {
         try {
             userService.dropUsersTable();
             userService.createUsersTable();
-            userService.saveUser(testName, testLastName,testAge,testBirth,testGender,testCitizenship);
+            userService.saveUser(testName, testLastName, testAge,testBirth,testGender,testCountry);
             List<User> userList = userService.getAllUsers();
 
             if (userList.size() != 1) {
@@ -91,7 +100,7 @@ public class UserServiceTest {
         try {
             userService.dropUsersTable();
             userService.createUsersTable();
-            userService.saveUser(testName, testLastName,testAge,testBirth,testGender,testCitizenship);
+            userService.saveUser(testName, testLastName, testAge,testBirth,testGender,testCountry);
             userService.cleanUsersTable();
 
             if (userService.getAllUsers().size() != 0) {
