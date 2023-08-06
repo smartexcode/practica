@@ -37,7 +37,7 @@
             <version>8.0.25</version>
         </dependency> -->
 
-        <!-- зависимость с PostgreSQL внизу-->
+        <!-- зависимость с PostgresSQL внизу-->
 
         <!-- https://mvnrepository.com/artifact/org.postgresql/postgresql -->
         <dependency>
