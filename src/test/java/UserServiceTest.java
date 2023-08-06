@@ -11,10 +11,11 @@ public class UserServiceTest {
 
     private final String testName = "Ivan";
     private final String testLastName = "Ivanov";
-    private final int testAge = 5;
+    private final int testAge = 6;
     private final String testBirth = "21.02.2017";
     private final String testGender = "м";
     private final String testCountry = "Россия";
+//    private final String testCountry = "Кытайсы";
 
 
     @Test

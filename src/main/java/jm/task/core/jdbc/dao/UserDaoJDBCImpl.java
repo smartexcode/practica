@@ -17,7 +17,13 @@ public class UserDaoJDBCImpl implements UserDao {
 
     public void createUsersTable() {
         try (Statement statement = util.getConnection().createStatement()){
-            statement.execute("CREATE TABLE if NOT EXISTS test (id bigint,name VARCHAR(40) NULL, lastName VARCHAR(80) NULL, age int NULL,birth VARCHAR(50) NULL,gender VARCHAR(2) NULL,country VARCHAR(60) NULL);");
+            statement.execute("CREATE TABLE if NOT EXISTS test (id SERIAL PRIMARY KEY," +
+                    "name VARCHAR(40) NULL," +
+                    "lastName VARCHAR(80) NULL," +
+                    "age int NULL CHECK (age >0 AND age < 100)," +
+                    "birth VARCHAR(60) NULL," +
+                    "gender VARCHAR(1) NULL CHECK ( gender in ('м','ж','w','m'))," +
+                    "country VARCHAR(100) CHECK ( country in ('Россия','Беларусь','Казахстан')))");
         } catch (SQLException e) {
             e.printStackTrace();
         }
