@@ -37,7 +37,7 @@ public class UserDaoJDBCImpl implements UserDao {
         }
     }
 
-    public void saveUser(String name, String lastName, int age, String birth, String gender, String country) {
+    public long saveUser(String name, String lastName, int age, String birth, String gender, String country) {
         String request = "INSERT INTO test(name, lastName, age, birth, gender, country) VALUES (?, ?, ?, ?, ?, ?)";
 
         try (PreparedStatement preparedStatement = util.getConnection().prepareStatement(request)){
@@ -53,6 +53,8 @@ public class UserDaoJDBCImpl implements UserDao {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+
+        return 0;
     }
 
     public void removeUserById(long id) {

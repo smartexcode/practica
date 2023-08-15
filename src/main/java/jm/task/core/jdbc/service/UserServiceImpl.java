@@ -1,13 +1,15 @@
 package jm.task.core.jdbc.service;
 
 import jm.task.core.jdbc.dao.UserDao;
+import jm.task.core.jdbc.dao.UserDaoHibernateImpl;
 import jm.task.core.jdbc.dao.UserDaoJDBCImpl;
 import jm.task.core.jdbc.model.User;
 import java.util.List;
 
 public class UserServiceImpl implements UserService {
 
-    UserDao userDao = new UserDaoJDBCImpl();
+    //UserDao userDao = new UserDaoJDBCImpl();
+    UserDao userDao = new UserDaoHibernateImpl();
 
     public void createUsersTable() {
         userDao.createUsersTable();
@@ -18,8 +20,8 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void saveUser(String name, String lastName, int age, String birth, String gender, String country) {
-        userDao.saveUser(name,lastName, age, birth, gender, country);
+    public long saveUser(String name, String lastName, int age, String birth, String gender, String country) {
+        return userDao.saveUser(name,lastName, age, birth, gender, country);
     }
 
     public void removeUserById(long id) {

@@ -6,25 +6,25 @@ import javax.persistence.*;
 @Table(name = "test",schema = "public")
 public class User {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @Column
+    @Column(name = "name")
     private String name;
 
-    @Column
+    @Column(name = "lastname")
     private String lastName;
 
-    @Column
+    @Column(name = "age")
     private int age;
 
-    @Column
+    @Column(name = "birth")
     private String birth;
 
-    @Column
+    @Column(name = "gender")
     private String gender;
 
-    @Column
+    @Column(name = "country")
     private String country;
 
     public User() {
@@ -39,7 +39,7 @@ public class User {
         this.country = country;
     }
 
-//    public Long getId() {return id;}
+    public Long getId() {return id;}
     public void setId(Long id) {
         this.id = id;
     }

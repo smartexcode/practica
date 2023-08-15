@@ -4,87 +4,116 @@ package jm.task.core.jdbc.dao;
  */
 
 import jm.task.core.jdbc.model.User;
+import jm.task.core.jdbc.util.HibernateUtil;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
-import javax.persistence.*;
+import javax.persistence.Persistence;
+import javax.persistence.Query;
 import java.util.List;
-
-import static jm.task.core.jdbc.util.HibernateUtil.getSessionFactory;
 
 
 public class UserDaoHibernateImpl implements UserDao {
     public UserDaoHibernateImpl() {}
 
     @Override
-    public void createUsersTable() {
-        Session session = getSessionFactory().openSession();
-        Transaction transaction = session.beginTransaction();
-        Query query = session.createSQLQuery("CREATE TABLE if NOT EXISTS test (id SERIAL PRIMARY KEY," +
-                "name VARCHAR(40) NULL," +
-                "lastName VARCHAR(80) NULL," +
-                "age int NULL CHECK (age >0 AND age < 100)," +
-                "birth VARCHAR(60) NULL," +
-                "gender VARCHAR(1) NULL CHECK ( gender in ('м','ж','w','m'))," +
-                "country VARCHAR(100) CHECK ( country in ('Россия','Беларусь','Казахстан')))").addEntity(User.class);
-
-
-        query.executeUpdate();
-        session.close();
-        transaction.commit();
-    }
-
-
+    public void createUsersTable() {}
 
     @Override
     public void dropUsersTable() {
-        Session session = getSessionFactory().openSession();
-        Transaction transaction = session.beginTransaction();
 
-        Query query = session.createSQLQuery("DROP TABLE if EXISTS test;").addEntity(User.class);
-
-        query.executeUpdate();
-        session.close();
-        transaction.commit();
     }
 
     @Override
-    public void saveUser(String name, String lastName, int age, String birth, String gender, String country) {
-        Session session = getSessionFactory().openSession();
-        Transaction transaction = session.beginTransaction();
+    public long saveUser(String name, String lastName, int age, String birth, String gender, String country) {
 
-        Query query = session.createSQLQuery("INSERT INTO test(name, lastName, age, birth, gender, country) VALUES (?, ?, ?, ?, ?, ?)").addEntity(User.class);
+        Transaction transaction = null;
+        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+            transaction = session.beginTransaction();
 
-        query.executeUpdate();
-        session.close();
-        transaction.commit();
+            User user = new User();
+            user.setName(name);
+            user.setLastName(lastName);
+            user.setAge(age);
+            user.setBirth(birth);
+            user.setGender(gender);
+            user.setCountry(country);
+
+            long id = (Long) session.save(user);
+
+            transaction.commit();
+
+            return id;
+
+        } catch (Exception e) {
+            if (transaction != null) {
+                transaction.rollback();
+            }
+            e.printStackTrace();
+        }
+        return 0;
     }
 
     @Override
     public void removeUserById(long id) {
-        Session session = getSessionFactory().openSession();
-        Transaction transaction = session.beginTransaction();
-        Query query = session.createSQLQuery("DELETE FROM test WHERE id=?");
+        Transaction transaction = null;
+        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
 
-        query.executeUpdate();
-        session.close();
-        transaction.commit();
+            transaction = session.beginTransaction();
+
+
+            User user = session.find(User.class, id);
+            session.delete(user);
+
+            transaction.commit();
+
+
+        } catch (Exception e) {
+            if (transaction != null) {
+                transaction.rollback();
+            }
+            e.printStackTrace();
+        }
+
     }
 
     @Override
     public List<User> getAllUsers() {
-        return getSessionFactory().getCurrentSession().createSQLQuery("SELECT * FROM test").addEntity(User.class).list();
+
+        Transaction transaction = null;
+        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+            transaction = session.beginTransaction();
+
+
+            return (List<User>) session.createQuery("from User").list();
+
+
+        } catch (Exception e) {
+            if (transaction != null) {
+                transaction.rollback();
+            }
+            e.printStackTrace();
+        }
+        return null;
+
     }
 
     @Override
     public void cleanUsersTable() {
-        Session session = getSessionFactory().openSession();
-        Transaction transaction = session.beginTransaction();
 
-        Query query = session.createSQLQuery("TRUNCATE TABLE test");
+        Transaction transaction = null;
+        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+            transaction = session.beginTransaction();
 
-        query.executeUpdate();
-        session.close();
-        transaction.commit();
+            String sql = "TRUNCATE TABLE test";
+            session.createSQLQuery(sql).executeUpdate();
+
+        } catch (Exception e) {
+            if (transaction != null) {
+                transaction.rollback();
+            }
+            e.printStackTrace();
+        }
+
     }
 }

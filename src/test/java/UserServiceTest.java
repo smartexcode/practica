@@ -15,7 +15,7 @@ public class UserServiceTest {
     private final String testBirth = "21.02.2017";
     private final String testGender = "м";
     private final String testCountry = "Россия";
-//    private final String testCountry = "Кытайсы";
+//  private final String testCountry = "Кытайсы";
 
 
     @Test
@@ -43,7 +43,7 @@ public class UserServiceTest {
         try {
             userService.dropUsersTable();
             userService.createUsersTable();
-            userService.saveUser(
+            long id = userService.saveUser(
                     testName,
                     testLastName,
                     testAge,
@@ -63,9 +63,15 @@ public class UserServiceTest {
                 Assert.fail("User был некорректно добавлен в базу данных");
             }
 
+
+                    userService.removeUserById(id);
+
         } catch (Exception e) {
             Assert.fail("Во время тестирования сохранения пользователя произошло исключение\n" + e);
         }
+
+
+
     }
 
     @Test
@@ -73,8 +79,8 @@ public class UserServiceTest {
         try {
             userService.dropUsersTable();
             userService.createUsersTable();
-            userService.saveUser(testName, testLastName, testAge,testBirth,testGender,testCountry);
-            userService.removeUserById(1L);
+            long id = userService.saveUser(testName, testLastName, testAge,testBirth,testGender,testCountry);
+            userService.removeUserById(id);
         } catch (Exception e) {
             Assert.fail("При тестировании удаления пользователя по id произошло исключение\n" + e);
         }
