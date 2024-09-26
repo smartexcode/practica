@@ -20,13 +20,12 @@ public class Main {
         // реализуйте алгоритм здесь
         UserService userService = new UserServiceImpl();
         userService.createUsersTable();
-        userService.saveUser("Jason", "Bourne", 32);
-        userService.saveUser("Foma", "Kiniaev", 53);
-        userService.saveUser("James", "Gosling", 67);
-        userService.saveUser("Elon", "Musk", 51);
+        userService.saveUser("Ербол", "Байжанов", 25,"23 марта 1998","м","Казахстан");
+        userService.saveUser("Инсаф", "Кинаев", 23,"10 мая 2000","м","Россия");
+        userService.saveUser("Мария", "Картошкина", 23,"9 марта 2000","ж","Беларусь");
+        userService.saveUser("Elon", "Musk", 51," 28 июня 1971","м","Africa");
 
         userService.getAllUsers();
-
         userService.cleanUsersTable();
         userService.dropUsersTable();
     }

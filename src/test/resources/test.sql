@@ -1,1 +1,0 @@
-insert into users (name, age, email) values ('Menga', 34, 'casmaster@mail.ru');

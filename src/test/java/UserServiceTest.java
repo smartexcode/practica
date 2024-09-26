@@ -11,7 +11,11 @@ public class UserServiceTest {
 
     private final String testName = "Ivan";
     private final String testLastName = "Ivanov";
-    private final byte testAge = 5;
+    private final int testAge = 6;
+    private final String testBirth = "21.02.2017";
+    private final String testGender = "м";
+    private final String testCountry = "Россия";
+//  private final String testCountry = "Кытайсы";
 
 
     @Test
@@ -39,20 +43,35 @@ public class UserServiceTest {
         try {
             userService.dropUsersTable();
             userService.createUsersTable();
-            userService.saveUser(testName, testLastName, testAge);
+            long id = userService.saveUser(
+                    testName,
+                    testLastName,
+                    testAge,
+                    testBirth,
+                    testGender,
+                    testCountry);
 
             User user = userService.getAllUsers().get(0);
 
             if (!testName.equals(user.getName())
                     || !testLastName.equals(user.getLastName())
                     || testAge != user.getAge()
+                    || !testBirth.equals(user.getBirth())
+                    || !testGender.equals(user.getGender())
+                    || !testCountry.equals(user.getCountry())
             ) {
                 Assert.fail("User был некорректно добавлен в базу данных");
             }
 
+
+                    userService.removeUserById(id);
+
         } catch (Exception e) {
             Assert.fail("Во время тестирования сохранения пользователя произошло исключение\n" + e);
         }
+
+
+
     }
 
     @Test
@@ -60,8 +79,8 @@ public class UserServiceTest {
         try {
             userService.dropUsersTable();
             userService.createUsersTable();
-            userService.saveUser(testName, testLastName, testAge);
-            userService.removeUserById(1L);
+            long id = userService.saveUser(testName, testLastName, testAge,testBirth,testGender,testCountry);
+            userService.removeUserById(id);
         } catch (Exception e) {
             Assert.fail("При тестировании удаления пользователя по id произошло исключение\n" + e);
         }
@@ -72,7 +91,7 @@ public class UserServiceTest {
         try {
             userService.dropUsersTable();
             userService.createUsersTable();
-            userService.saveUser(testName, testLastName, testAge);
+            userService.saveUser(testName, testLastName, testAge,testBirth,testGender,testCountry);
             List<User> userList = userService.getAllUsers();
 
             if (userList.size() != 1) {
@@ -88,7 +107,7 @@ public class UserServiceTest {
         try {
             userService.dropUsersTable();
             userService.createUsersTable();
-            userService.saveUser(testName, testLastName, testAge);
+            userService.saveUser(testName, testLastName, testAge,testBirth,testGender,testCountry);
             userService.cleanUsersTable();
 
             if (userService.getAllUsers().size() != 0) {
